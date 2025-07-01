@@ -1,0 +1,24 @@
+{
+  "students": [
+    {
+      "id": "1",
+      "fullName": "Phạm Hoàng Tuấn",
+      "age": 19
+    },
+    {
+      "id": "c084",
+      "fullName": "",
+      "age": 199
+    },
+    {
+      "id": "caa5",
+      "fullName": "",
+      "age": 199
+    },
+    {
+      "id": "bdc4",
+      "fullName": "23",
+      "age": 199
+    }
+  ]
+}
