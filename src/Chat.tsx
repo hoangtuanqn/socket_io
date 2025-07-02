@@ -17,12 +17,12 @@ const Chat = ({ room }: { room: string }) => {
     const [idSocket, setIdSocket] = useState<string>(() => localStorage.getItem("id_socket") || "");
     const frameChat = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
-        socket.on("message", (message) => {
+        socket.on("chat:message", (message) => {
             setListMsg((prev) => [...prev, message]);
             // console.log(message);
         });
         return () => {
-            socket.off("message");
+            socket.off("chat:message");
         };
     }, []);
     useEffect(() => {
@@ -39,7 +39,7 @@ const Chat = ({ room }: { room: string }) => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        socket.emit("message", msg);
+        socket.emit("chat:message", msg);
         setMsg((prev) => ({
             ...prev,
             message: "",
@@ -89,8 +89,8 @@ const Chat = ({ room }: { room: string }) => {
                     />
                     <input
                         type="text"
-                        id="message"
-                        name="message"
+                        id="chat:message"
+                        name="chat:message"
                         value={msg?.message || ""}
                         onChange={(e) =>
                             setMsg((prev) => ({

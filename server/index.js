@@ -13,14 +13,15 @@ const io = new Server(server, {
     },
 });
 // Lắng nghe sự kiện kết nối từ client
-io.on("connection", (socket) => {
+const chatNamespace = io.of("/chat");
+chatNamespace.on("connection", (socket) => {
     console.log("A user connected:", socket.id);
 
-    // io.to(socket.id).emit("message", Math.random());
+    // io.to(socket.id).emit("chat:message", Math.random());
     // Lắng nghe tin nhắn từ client
-    socket.on("message", ({ message, room, ...rest }) => {
+    socket.on("chat:message", ({ message, room, ...rest }) => {
         console.log("Message from client:", room);
-        io.to(room).emit("message", {
+        chatNamespace.to(room).emit("chat:message", {
             ...rest,
             id: socket.id,
             message: message,
@@ -30,7 +31,7 @@ io.on("connection", (socket) => {
     socket.on("enter_room", (roomID) => {
         socket.join(roomID);
         console.log("Đã json thành công " + roomID);
-        socket.to(roomID).emit("message", {
+        socket.to(roomID).emit("chat:message", {
             id: "",
             name: "",
             message: "",
